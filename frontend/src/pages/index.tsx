@@ -1,7 +1,7 @@
 // index.tsx
 // from https://github.com/mui/material-ui/blob/v5.15.15/docs/data/material/getting-started/templates/sign-up/SignUp.tsx
 
-import * as React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +11,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import ChatIcon from '@mui/icons-material/Chat';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -21,7 +21,7 @@ export function Copyright(props: any) {
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Agora
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -39,8 +39,10 @@ export default function SignUp() {
     console.log({
       email: data.get('email'),
       password: data.get('password'),
+      age: data.get('age'),
     });
   };
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -55,10 +57,13 @@ export default function SignUp() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+            <ChatIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
+          <Typography variant="h5">
+            Agora
+          </Typography>
+          <Typography variant="subtitle1">
+            Explore different faiths, cultures, and traditions.
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -69,7 +74,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="name"
-                  label="name"
+                  label="Nickname"
                   autoFocus
                 />
               </Grid>
@@ -84,21 +89,16 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
+              <TextField
+                required
+                fullWidth
+                name="age"
+                label="Age"
+                type="number"
+                id="age"
+                autoComplete="age"
+                defaultValue={18}
+              />
               </Grid>
             </Grid>
             <Button
@@ -106,15 +106,11 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onSubmit={() => {console.log("submit")}}
             >
-              Sign Up
+              Next Step
             </Button>
             <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
             </Grid>
           </Box>
         </Box>
