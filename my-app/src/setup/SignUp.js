@@ -111,7 +111,7 @@ function IdentityIntro({ nextStep }) {
             </Select>
           </FormControl>
 
-          <Button colorScheme="green" size="lg" width="full" onClick={nextStep}>
+          <Button colorScheme="pink" size="lg" width="full" onClick={nextStep}>
             Next
           </Button>
         </VStack>
@@ -128,7 +128,7 @@ function NotreDameIntro({ nextStep }) {
 
   return (
     <Center h="100vh">
-      <Container maxW="container.sm">
+      <Container maxW="container.sm" textAlign="center">
         <VStack spacing={4}>
           <Box justifySelf={'flex-start'}>
             <Heading paddingBottom={4}>Let's get cheesy....</Heading>
@@ -167,7 +167,7 @@ function NotreDameIntro({ nextStep }) {
               onChange={e => setHometown(e.target.value)}
             />
           </FormControl>
-          <Button colorScheme="red" size="lg" width="full" onClick={nextStep}>
+          <Button colorScheme="pink" size="lg" width="full" onClick={nextStep}>
             Next
           </Button>
         </VStack>
@@ -185,9 +185,9 @@ function DoneIntro({ nextStep }) {
           <Text>
             Now that we know each other, lets introduce you to others 🥁
           </Text>
-          <Link to="/chat">
+          <Link to="/topic">
             <Button
-              colorScheme="orange"
+              colorScheme="pink"
               size="lg"
               width="300px"
               onClick={nextStep}
