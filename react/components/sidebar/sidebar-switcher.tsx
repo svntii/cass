@@ -1,17 +1,10 @@
 import { ContentType } from "@/types/content-types"
 import {
-  IconAdjustmentsHorizontal,
-  IconBolt,
-  IconBooks,
-  IconFile,
   IconMessage,
-  IconPencil,
-  IconRobotFace,
-  IconSparkles
+  IconUserCircle
 } from "@tabler/icons-react"
 import { FC } from "react"
 import { TabsList } from "../ui/tabs"
-import { WithTooltip } from "@/components/ui/with-tooltip"
 import { SidebarSwitchItem } from "@/components/sidebar/side-bar-switcher-item"
 
 export const SIDEBAR_ICON_SIZE = 28
@@ -33,11 +26,10 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
         />
 
         <SidebarSwitchItem
-          icon={<IconAdjustmentsHorizontal size={SIDEBAR_ICON_SIZE} />}
-          contentType="settings"
+          icon={<IconUserCircle size={SIDEBAR_ICON_SIZE} />}
+          contentType="profile"
           onContentTypeChange={onContentTypeChange}
         />
-
       </TabsList>
     </div>
   )

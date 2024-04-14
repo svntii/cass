@@ -20,9 +20,7 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
   const workspaceId = params.workspaceid as string
 
   const {
-    setChatSettings,
     setChats,
-    selectedWorkspace,
     setSelectedWorkspace,
     setSelectedChat,
     setChatMessages,
@@ -36,9 +34,6 @@ export default function WorkspaceLayout({ children }: WorkspaceLayoutProps) {
     setShowFilesDisplay,
     setFolders,
     setFiles,
-    setPresets,
-    setPrompts,
-    setTools,
   } = useContext(ChatUIContext)
 
   const [loading, setLoading] = useState(true)

@@ -1,4 +1,4 @@
-import { ContentType } from "@/types"
+import { ContentType } from "@/types/content-types"
 import { FC } from "react"
 import { Input } from "../ui/input"
 

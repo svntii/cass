@@ -1,54 +1,40 @@
-import { ChatUIContext } from "@/context/context"
+import { ChatUIContext } from "@/context/context";
 
-import { ContentType } from "@/types/content-types"
-import { IconFolderPlus, IconPlus } from "@tabler/icons-react"
-import { FC, useContext, useState } from "react"
-import { Button } from "../ui/button"
-
+import { ContentType } from "@/types/content-types";
+import { IconPlus } from "@tabler/icons-react";
+import { FC, useContext, useState } from "react";
+import { Button } from "../ui/button";
 
 interface SidebarCreateButtonsProps {
-  contentType: ContentType
-  hasData: boolean
+  contentType: ContentType;
+  hasData: boolean;
 }
 
 export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
   contentType,
-  hasData
+  hasData,
 }) => {
   const { profile, selectedWorkspace, folders, setFolders } =
-    useContext(ChatUIContext)
+    useContext(ChatUIContext);
 
-  const [isCreatingPrompt, setIsCreatingPrompt] = useState(false)
-  const [isCreatingPreset, setIsCreatingPreset] = useState(false)
-  const [isCreatingFile, setIsCreatingFile] = useState(false)
-  const [isCreatingCollection, setIsCreatingCollection] = useState(false)
-  const [isCreatingAssistant, setIsCreatingAssistant] = useState(false)
-  const [isCreatingTool, setIsCreatingTool] = useState(false)
-  const [isCreatingModel, setIsCreatingModel] = useState(false)
-
-  const handleCreateFolder = async () => {
-    if (!profile) return
-    if (!selectedWorkspace) return
-
-
-  }
+  const [isCreatingPreset, setIsCreatingPreset] = useState(false);
 
   const getCreateFunction = () => {
     switch (contentType) {
       case "chats":
         return async () => {
-          {}
-        }
+          {
+          }
+        };
 
-      case "settings":
+      case "profile":
         return async () => {
-          setIsCreatingPreset(true)
-        }
+        };
 
       default:
-        break
+        break;
     }
-  }
+  };
 
   return (
     <div className="flex w-full space-x-2">
@@ -58,12 +44,6 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
         {contentType.charAt(0).toUpperCase() +
           contentType.slice(1, contentType.length - 1)}
       </Button>
-
-      {hasData && (
-        <Button className="size-[36px] p-1" onClick={handleCreateFolder}>
-          <IconFolderPlus size={20} />
-        </Button>
-      )}
     </div>
-  )
-}
+  );
+};
