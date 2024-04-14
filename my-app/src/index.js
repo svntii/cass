@@ -19,6 +19,8 @@ import LoginPage from './Login/Login';
 import SignUp from './setup/SignUp';
 import Chat from './Chat/Chat';
 import { ChakraProvider } from '@chakra-ui/react';
+import Topics from './Topic/topics';
+import Load from './Load/load';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -29,6 +31,8 @@ ReactDOM.render(
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/topic" element={<Topics />} />
+          <Route path="/load" element={<Load />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

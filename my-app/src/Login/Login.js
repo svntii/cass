@@ -33,10 +33,11 @@ function LoginPage() {
             <FormLabel>Password</FormLabel>
             <Input type="password" />
           </FormControl>
-          <Link to="/chat">
-            <Button colorScheme="blue" size="lg" width="610px">
-              Login
+          <Link to="/topic">
+            <Button colorScheme="purple" size="lg" width="610px">
+            Log In
             </Button>
+          
           </Link>
           <Link to="/signup">
             <Button colorScheme="purple" size="lg" width="610px">
@@ -47,8 +48,8 @@ function LoginPage() {
             By signing up, you agree to our Terms of Service and Privacy Policy
           </Text>
           <Link to="#">
-            <Text color="red" size="lg" width="610px">
-              Forgot Password
+            <Text color="red" size="lg" width="610px" textAlign="center">
+              Forgot Password?
             </Text>
           </Link>
         </VStack>
