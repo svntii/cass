@@ -30,21 +30,21 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline"
+        link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
-        icon: "size-10"
-      }
+        icon: "size-10",
+      },
     },
     defaultVariants: {
       variant: "default",
-      size: "default"
-    }
+      size: "default",
+    },
   }
-)
+);
 export interface ProfileSidebarContentProps {
   profile: Profile;
 }
@@ -80,143 +80,20 @@ export const ProfileSidebarContent: FC<ProfileSidebarContentProps> = ({
         />
       </label>
 
-      <PreferencesForm
-        preference={profile.preferences!}
-        onPreferenceChange={(preferences) => {}}
-        availableReligions={[]}
-        availableCultures={[]}
-      ></PreferencesForm>
-
-      <button 
-      
-      className={cn(buttonVariants())
-    }
-      type="submit">Update!</button>
+      <button className={cn(buttonVariants())} type="submit">
+        Update!
+      </button>
     </form>
   );
 };
 
-
-
-export interface PreferencesFormProps {
-  preference: Preference;
-  onPreferenceChange: (preferences: Preference) => void;
-  availableReligions: Religion[];
-  availableCultures: Culture[];
-}
-
-export const PreferencesForm: FC<PreferencesFormProps> = ({
-  preference,
-  onPreferenceChange,
-}) => {
-  const [selectedReligions, setSelectedReligions] = useState<Religion[]>(
-    preference.religion
-  );
-  const [selectedCultures, setSelectedCultures] = useState<Culture[]>(
-    preference.culture
-  );
-  const [selectedLanguages, setSelectedLanguages] = useState<Language[]>(
-    preference.languages
-  );
-
-  const handleReligionChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const selectedReligions = Array.from(
-      event.target.selectedOptions,
-      (option) => option.value as Religion
-    );
-    setSelectedReligions(selectedReligions);
-  };
-
-  const handleCultureChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedCultures = Array.from(
-      event.target.selectedOptions,
-      (option) => option.value as Culture
-    );
-    setSelectedCultures(selectedCultures);
-  };
-
-  const handleLanguageChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const selectedLanguages = Array.from(
-      event.target.selectedOptions,
-      (option) => option.value as Language
-    );
-    setSelectedLanguages(selectedLanguages);
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    onPreferenceChange({
-      religion: selectedReligions,
-      culture: selectedCultures,
-      languages: selectedLanguages,
-    });
-  };
-
+function PreferencesForm() {
   return (
-    <form onSubmit={handleSubmit}>
-      <label
-        className={cn(
-          labelVariants(),
-          "text-sm font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-        )}
-      >
-        Religion:
-        <select multiple onChange={handleReligionChange}>
-          {allReligions.map((religion) => (
-            <option
-              key={religion}
-              value={religion}
-              selected={selectedReligions.includes(religion)}
-            >
-              {religion}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label
-        className={cn(
-          labelVariants(),
-          "text-sm font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-        )}
-      >
-        Culture:
-        <select multiple onChange={handleCultureChange}>
-          {/* Replace "allCultures" with the actual list of cultures */}
-          {allCultures.map((culture) => (
-            <option
-              key={culture}
-              value={culture}
-              selected={selectedCultures.includes(culture)}
-            >
-              {culture}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label
-        className={cn(
-          labelVariants(),
-          "text-sm font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-        )}
-      >
-        Language:
-        <select multiple onChange={handleLanguageChange}>
-          {/* Replace "allLanguages" with the actual list of languages */}
-          {allLanguages.map((language) => (
-            <option
-              key={language}
-              value={language}
-              selected={selectedLanguages.includes(language)}
-            >
-              {language}
-            </option>
-          ))}
-        </select>
-      </label>
-    </form>
+    <select class="form-select" multiple aria-label="Multiple select example">
+      <option selected>Open this select menu</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
   );
-};
+}
