@@ -26,11 +26,6 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
           {
           }
         };
-
-      case "profile":
-        return async () => {
-        };
-
       default:
         break;
     }
