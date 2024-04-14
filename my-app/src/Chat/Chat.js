@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
 import {
   Drawer,
   DrawerBody,
@@ -13,7 +14,11 @@ import {
   IconButton,
   Box,
   VStack,
-  Avatar,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  Progress,
 } from '@chakra-ui/react';
 import {
   ChevronRightIcon,
@@ -35,18 +40,123 @@ import {
   VideoCallButton,
   ConversationList,
   Conversation,
+  Avatar,
 } from '@chatscope/chat-ui-kit-react';
 
-import { SampleChat } from './demo';
+import { SampleChat, SamplePrompts, SampleResponses } from './demo';
+import swal from 'sweetalert';
 
 export default function Chat() {
-  const [steps, setSteps] = useState(0);
+  const MAX = 20;
+  const [steps, setSteps] = useState(1);
+  const [promptSteps, setPromptSteps] = useState(1);
+  const [seconds, setSeconds] = useState(0);
+  const navigate = useNavigate();
+
+  const MoodButton = ({ rating, onClick }) => (
+    <button
+      data-rating={rating}
+      className="mood-btn"
+      onClick={() => onClick(rating)}
+    />
+  );
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds(prevSeconds => prevSeconds + 1);
+    }, 1000); // 1 second
+
+    // Stop the timer after 5 minutes
+    if (seconds >= MAX) {
+      swal({
+        text: 'Times up! Time to go to the next prompt.',
+        buttons: {
+          cancel: 'Close',
+        },
+      });
+
+      clearInterval(timer);
+
+      setTimeout(() => {
+        navigate('/topic');
+      }, 5000);
+    }
+
+    // Clean up the timer when the component unmounts
+    return () => clearInterval(timer);
+  }, [seconds]);
+
+  let [currentChat, setCurrentChat] = useState([SampleChat[0]]);
+  function updateChatMessage(message) {
+    let time = Date.now();
+
+    setCurrentChat(prevChat => [
+      ...prevChat,
+      {
+        type: 'message',
+        props: {
+          model: {
+            message: message,
+            sentTime: time,
+            sender: 'Me',
+            direction: 'outgoing',
+            position: 'single',
+          },
+        },
+      },
+    ]);
+  }
+
+  function nextDemoMessage(steps) {
+    console.log(steps);
+    console.log(steps % 5);
+    let time = Date.now();
+    let nextItem = {
+      type: 'message',
+      props: {
+        model: {
+          message: SampleResponses[steps],
+          sentTime: time,
+          sender: 'Friend',
+          direction: 'incoming',
+          position: 'single',
+        },
+      },
+    };
+    setCurrentChat(prevChat => [...prevChat, nextItem]);
+
+    if (steps % 5 === 0) {
+      setPromptSteps(promptSteps + 1);
+      // let sep = {
+      //   type: 'seperator',
+      //   props: {
+      //     content: time,
+      //   },
+      // };
+      // setCurrentChat(prevChat => [...prevChat, sep]);
+
+      let nextItem = {
+        type: 'message',
+        props: {
+          model: {
+            message: SamplePrompts[promptSteps],
+            sentTime: time,
+            sender: 'Friend',
+            direction: 'incoming',
+            position: 'single',
+          },
+        },
+      };
+      setCurrentChat(prevChat => [...prevChat, nextItem]);
+    }
+  }
 
   return (
     <Box w="100vw" h="100vh">
+      <Progress colorScheme="pink" size="lg" value={seconds} max={MAX} />
+
       <Menu />
       <MainContainer style={{ width: '100%', height: '100%' }}>
-        {/* Set width and height to 100% */}
         <ChatContainer>
           <ConversationHeader>
             <Avatar
@@ -55,7 +165,7 @@ export default function Chat() {
             />
             <ConversationHeader.Content
               info="Active 20 secs ago"
-              userName="LuckyCharms777"
+              userName="LuckCharms777"
             />
 
             <ConversationHeader.Actions>
@@ -63,18 +173,38 @@ export default function Chat() {
               <InfoButton />
             </ConversationHeader.Actions>
           </ConversationHeader>
-          <MessageList>
-            {SampleChat.slice(0, steps).map((m, i) =>
+          <MessageList id="list">
+            {currentChat.map((m, i) =>
               m.type === 'separator' ? (
                 <MessageSeparator key={i} {...m.props} />
               ) : (
                 <Message key={i} {...m.props} />
               )
             )}
+            <Message id="mel" model={{ direction: 'outgoing' }}></Message>
           </MessageList>
+
           <MessageInput
             placeholder="Type message here"
-            onSend={() => setSteps(steps + 1)}
+            onSend={e => {
+              console.log(e);
+              let message = e;
+              let time = Date.now();
+
+              while (1 == 1) {
+                let nextItem = SampleChat[steps];
+                if (nextItem.type === 'separator') {
+                  setSteps(steps + 1);
+                  continue;
+                }
+                break;
+              }
+
+              updateChatMessage(e);
+              nextDemoMessage(steps);
+
+              setSteps(steps + 1);
+            }}
           />
         </ChatContainer>
       </MainContainer>
@@ -89,7 +219,7 @@ function Menu() {
     <>
       <IconButton
         ref={btnRef}
-        colorScheme="blue"
+        colorScheme="pink"
         onClick={onOpen}
         icon={isOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         position="fixed"
@@ -107,22 +237,28 @@ function Menu() {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          <DrawerHeader>Menu</DrawerHeader>
 
           <DrawerBody>
             <VStack spacing={4}>
-              <Button leftIcon={<AddIcon />} colorScheme="blue" variant="solid">
-                New Chat
-              </Button>
+              <Link to="/topic">
+                <Button
+                  leftIcon={<AddIcon />}
+                  colorScheme="pink"
+                  variant="solid"
+                >
+                  New Chat
+                </Button>
+              </Link>
               <Box>
                 <ConversationList>
                   <Conversation
-                    info="Yes i can do it for you"
-                    lastSenderName="Lilly"
-                    name="Lilly"
+                    info="Do animals go to heaven?"
+                    lastSenderName="Prompt"
+                    name="LazerChampion"
                   >
                     <Avatar
-                      name="Lilly"
+                      name="LazerChampion"
                       src="https://chatscope.io/storybook/react/assets/lilly-aj6lnGPk.svg"
                     />
                   </Conversation>
@@ -139,7 +275,7 @@ function Menu() {
             </Link>
             <Button
               leftIcon={<SettingsIcon />}
-              colorScheme="blue"
+              colorScheme="pink"
               variant="solid"
             >
               Settings

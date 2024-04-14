@@ -40,7 +40,6 @@ export default function SignUp() {
   const [setup, setSetup] = useState(0);
 
   const nextStep = () => {
-    console.log('next step');
     if (setup === 2) {
       return;
     }
@@ -68,6 +67,22 @@ function IdentityIntro({ nextStep }) {
     <Center h="100vh">
       <Container maxW="container.sm">
         <VStack spacing={4}>
+        <Heading paddingBottom={4}>User Information</Heading>
+        <img src="/agora_logo.png" alt="Photo" width="100" height="auto" />
+        <video
+            autoPlay
+            muted
+            loop
+            style={{
+              position: 'fixed',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: '-1',
+            }}
+          >
+            <source src="/chat_video.mp4" type="video/mp4" />
+          </video>
           <FormControl id="age">
             <FormLabel>Age</FormLabel>
             <Input
@@ -111,7 +126,7 @@ function IdentityIntro({ nextStep }) {
             </Select>
           </FormControl>
 
-          <Button colorScheme="green" size="lg" width="full" onClick={nextStep}>
+          <Button colorScheme="pink" size="lg" width="full" onClick={nextStep}>
             Next
           </Button>
         </VStack>
@@ -128,8 +143,23 @@ function NotreDameIntro({ nextStep }) {
 
   return (
     <Center h="100vh">
-      <Container maxW="container.sm">
+      <Container maxW="container.sm" textAlign="center">
         <VStack spacing={4}>
+          <img src="/agora_logo.png" alt="Photo" width="100" height="auto" />
+          <video
+            autoPlay
+            muted
+            loop
+            style={{
+              position: 'fixed',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: '-1',
+            }}
+          >
+            <source src="/chat_video.mp4" type="video/mp4" />
+          </video>
           <Box justifySelf={'flex-start'}>
             <Heading paddingBottom={4}>Let's get cheesy....</Heading>
             <Text>Your Notre Dame Intro</Text>
@@ -167,7 +197,7 @@ function NotreDameIntro({ nextStep }) {
               onChange={e => setHometown(e.target.value)}
             />
           </FormControl>
-          <Button colorScheme="red" size="lg" width="full" onClick={nextStep}>
+          <Button colorScheme="pink" size="lg" width="full" onClick={nextStep}>
             Next
           </Button>
         </VStack>
@@ -181,13 +211,28 @@ function DoneIntro({ nextStep }) {
     <Center h="100vh">
       <Container maxW="container.sm">
         <VStack spacing={4}>
+        <img src="/agora_logo.png" alt="Photo" width="100" height="auto" />
+        <video
+            autoPlay
+            muted
+            loop
+            style={{
+              position: 'fixed',
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: '-1',
+            }}
+          >
+            <source src="/chat_video.mp4" type="video/mp4" />
+          </video>
           <Heading>All Done :)</Heading>
           <Text>
             Now that we know each other, lets introduce you to others 🥁
           </Text>
-          <Link to="/chat">
+          <Link to="/topic">
             <Button
-              colorScheme="orange"
+              colorScheme="pink"
               size="lg"
               width="300px"
               onClick={nextStep}
