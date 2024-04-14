@@ -47,7 +47,7 @@ import { SampleChat, SamplePrompts, SampleResponses } from './demo';
 import swal from 'sweetalert';
 
 export default function Chat() {
-  const MAX = 20;
+  const MAX = 30;
   const [steps, setSteps] = useState(1);
   const [promptSteps, setPromptSteps] = useState(1);
   const [seconds, setSeconds] = useState(0);
@@ -64,7 +64,7 @@ export default function Chat() {
   useEffect(() => {
     const timer = setInterval(() => {
       setSeconds(prevSeconds => prevSeconds + 1);
-    }, 1000); // 1 second
+    }, 3000); // 1 second
 
     // Stop the timer after 5 minutes
     if (seconds >= MAX) {
