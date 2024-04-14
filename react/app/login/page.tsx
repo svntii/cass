@@ -18,7 +18,7 @@ export default async function Login({
   const session = false;
 
   if (session) {
-    return redirect(`/chat`);
+    return redirect(`/topic`);
   }
 
   const signIn = async (formData: FormData) => {
@@ -27,7 +27,7 @@ export default async function Login({
     const password = formData.get("password") as string;
     const cookieStore = cookies();
 
-    return redirect(`/chat`);
+    return redirect(`/topic`);
   };
 
   const signUp = async (formData: FormData) => {
@@ -78,7 +78,7 @@ export default async function Login({
           placeholder="••••••••"
         />
 
-        <SubmitButton className="mb-2 rounded-md bg-blue-700 px-4 py-2 text-white">
+        <SubmitButton className="mb-2 rounded-md bg-pink-500 px-4 py-2 text-white">
           Login
         </SubmitButton>
 

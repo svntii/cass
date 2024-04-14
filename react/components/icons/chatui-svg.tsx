@@ -14,16 +14,28 @@ export const ChatUISVG: FC<ChatUISVGProps> = ({ theme, scale = 1 }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill={theme === "dark" ? "#fff" : "#000"} fontSize="40" fontWeight="bold">YOUR_TEXT_HERE</text>
+      
+       {/*Create a linear gradient to match our color scheme :) */}
+       <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style={{ stopColor: "#FF69B4", stopOpacity: 1 }} />
+          <stop offset="100%" style={{ stopColor: "#800080", stopOpacity: 1 }} />
+        </linearGradient>
+      </defs>
+      
+      {/* Use the linear gradient as the fill */}
       <rect
         x="12.5"
         y="12.5"
         width="164"
         height="127"
         rx="37.5"
-        fill={`${theme === "dark" ? "#000" : "#fff"}`}
+        fill="url(#gradient)"
         stroke={`${theme === "dark" ? "#fff" : "#000"}`}
         strokeWidth="25"
       />
+      
       <path
         d="M72.7643 143.457C77.2953 143.443 79.508 148.98 76.2146 152.092L42.7738 183.69C39.5361 186.749 34.2157 184.366 34.3419 179.914L35.2341 148.422C35.3106 145.723 37.5158 143.572 40.2158 143.564L72.7643 143.457Z"
         fill={`${theme === "dark" ? "#fff" : "#000"}`}
