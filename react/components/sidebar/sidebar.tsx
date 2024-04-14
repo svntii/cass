@@ -6,6 +6,9 @@ import { TabsContent } from "../ui/tabs"
 
 import { SidebarContent } from "./sidebar-content"
 import { Folder } from "@/db/items"
+import { ProfileSidebarContent } from "./profile/sidebar-profile-content"
+import { Profile } from "@/db/profile"
+import dummyProfile from "@/dummy/dummy"
 
 interface SidebarProps {
   contentType: ContentType
@@ -23,17 +26,26 @@ export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
     tools,
   } = useContext(ChatUIContext)
 
+  let profile = dummyProfile
+
   const chatFolders = folders.filter(folder => folder.type === "chats")
   const presetFolders = folders.filter(folder => folder.type === "settings")
 
   const renderSidebarContent = (
     contentType: ContentType,
-    data: any[],
     folders: Folder[]
   ) => {
-    return (
-      <SidebarContent contentType={contentType} folders={folders} />
-    )
+    
+    switch (contentType) {
+      case "chats":
+        return <SidebarContent contentType={contentType} folders={folders} />
+
+      case "profile":
+        return <ProfileSidebarContent profile={dummyProfile} /> 
+
+      default:
+        return null
+    }
   }
 
   return (
@@ -54,10 +66,10 @@ export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
         {(() => {
           switch (contentType) {
             case "chats":
-              return renderSidebarContent("chats", chats, chatFolders)
+              return renderSidebarContent("chats", chatFolders)
 
-            case "settings":
-              return renderSidebarContent("settings", presets, presetFolders)
+            case "profile":
+              return renderSidebarContent("profile", presetFolders)
 
             default:
               return null
